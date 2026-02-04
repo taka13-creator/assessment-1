@@ -1,83 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=devuce-width,initial-scale=l">
-    <link href="style.css" rel="stylesheet">
-    <title>takaty13のポートフォリオ</title>
-  </head>
-  <body>
-    <h1>takaty13のポートフォリオ</h1>
-      <img src="猫.JPG">
+<head>
+    <meta charset="UTF-8">
+    <title>絶対押せないボタン</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            overflow: hidden; /* ボタンが画面外にはみ出してスクロールが出るのを防ぐ */
+            font-family: sans-serif;
+        }
+
+        #escape-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute; /* 座標で動かすために必須 */
+            transition: all 0.1s ease; /* 動きを滑らかにする */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="position: fixed; top: 20px; color: #333;">私をクリックしてみて！</h1>
     
-    <h2>About</h2>
-    <p>
-      バイクが好き。<br>料理ができる。<br>猫が好き。
-    </p>
+    <button id="escape-button">クリックしてね</button>
 
-    <h3>Profile</h3>
-    <ul>
-      <li>takaty</li>
-      <li>埼玉県</li>
-      <li>趣味、料理、バイク</li>
-    </ul>
+    <script>
+        const btn = document.getElementById('escape-button');
 
-    <h3>Skills</h3>
-    <table>
-      <tr>
-        <th>OS</th>
-        <td>Windows,mac </td>
-      </tr>
-      <tr>
-        <th></th>
-        <td></td>
-      </tr>
-      <tr>
-        <th></th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>資格・免許</th>
-        <td>自動二輪免許</td>
-      </tr>
-    </table>
+        // マウスがボタンに乗った（重なった）瞬間に発動
+        btn.addEventListener('mouseover', () => {
+            // 画面の幅と高さからボタンのサイズを引いた範囲で計算
+            const x = Math.random() * (window.innerWidth - btn.clientWidth);
+            const y = Math.random() * (window.innerHeight - btn.clientHeight);
 
-    <h3>Works</h3>
-    <p>アピールできる活動内容を書きましょう。</p>
-    <ul>
-      <li><a </a></li>
-      <li><a </a></li>
-      <li><a </a></li>
-      <li>
-        作った作品
-        <ul> 
-          <li><a </a></li>
-        </ul>
-      </li>
-    </ul>
+            // ボタンのスタイル（座標）を更新
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+        });
 
-    <h3>Contact</h3>
-    <p>連絡先や SNS のアカウントを書きましょう。</p>
-    <ul>
-      <li><a </a></li>
-      <li><a </a></li>
-      <li><a </a></li>
-    </ul>
-
-    <h3>History</h3>
-    <p>学歴、職歴、アルバイト、インターン経験など。</p>
-    <table>
-      <tr>
-        <th>2024 年</th>
-        <td>学校法人角川ドワンゴ学園 <a href="https://nnn.ed.jp/">N高等学校</a> 卒業</td>
-      </tr>
-      <h3>好きな動画</h3>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/HpO7ot9iCVE?si=gGLccCMUZzrOGKun" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-      <h3>Open Processing</h3>
-      <iframe src="https://openprocessing.org/sketch/2790568/embed/" width="400" height="400"></iframe>
-    </table>
-  </body>
-</html> 
-  
-  
+        // 万が一クリックできた時のお祝い
+        btn.addEventListener('click', () => {
+            alert('参りました！あなたの勝ちです！');
+        });
+    </script>
+</body>
+</html>

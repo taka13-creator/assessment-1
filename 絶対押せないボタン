@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>絶対押せないボタン</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            overflow: hidden; /* ボタンが画面外にはみ出してスクロールが出るのを防ぐ */
+            font-family: sans-serif;
+        }
+
+        #escape-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute; /* 座標で動かすために必須 */
+            transition: all 0.1s ease; /* 動きを滑らかにする */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="position: fixed; top: 20px; color: #333;">私をクリックしてみて！</h1>
+    
+    <button id="escape-button">クリックしてね</button>
+
+    <script>
+        const btn = document.getElementById('escape-button');
+
+        // マウスがボタンに乗った（重なった）瞬間に発動
+        btn.addEventListener('mouseover', () => {
+            // 画面の幅と高さからボタンのサイズを引いた範囲で計算
+            const x = Math.random() * (window.innerWidth - btn.clientWidth);
+            const y = Math.random() * (window.innerHeight - btn.clientHeight);
+
+            // ボタンのスタイル（座標）を更新
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+        });
+
+        // 万が一クリックできた時のお祝い
+        btn.addEventListener('click', () => {
+            alert('参りました！あなたの勝ちです！');
+        });
+    </script>
+</body>
+</html>

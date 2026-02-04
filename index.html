@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>絶対押せないボタン</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>絶対押せないボタン - スマホ対応版</title>
     <style>
         body {
             height: 100vh;
@@ -10,51 +11,70 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f2f5;
-            overflow: hidden; /* ボタンが画面外にはみ出してスクロールが出るのを防ぐ */
-            font-family: sans-serif;
+            background-color: #eef2f3;
+            overflow: hidden; /* スクロールを禁止して逃げ場をなくす */
+            touch-action: none; /* ブラウザ独自のジェスチャー（拡大など）を無効化 */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
         #escape-button {
-            padding: 15px 30px;
+            padding: 20px 40px;
             font-size: 1.2rem;
             font-weight: bold;
-            background-color: #ff4757;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            position: absolute; /* 座標で動かすために必須 */
-            transition: all 0.1s ease; /* 動きを滑らかにする */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: absolute;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(255, 65, 108, 0.3);
+            user-select: none; /* テキスト選択を防ぐ */
         }
     </style>
 </head>
 <body>
 
-    <h1 style="position: fixed; top: 20px; color: #333;">私をクリックしてみて！</h1>
+    <h1 style="position: fixed; top: 10%; width: 100%; text-align: center; color: #333; pointer-events: none;">
+        触れるもんなら触ってみな！
+    </h1>
     
-    <button id="escape-button">クリックしてね</button>
+    <button id="escape-button">捕まえて！</button>
 
     <script>
         const btn = document.getElementById('escape-button');
 
-        // 触れた瞬間に発動
-        btn.addEventListener('touchstart', () => {
-            // 画面の幅と高さからボタンのサイズを引いた範囲で計算
-            const x = Math.random() * (window.innerWidth - btn.clientWidth);
-            const y = Math.random() * (window.innerHeight - btn.clientHeight);
+        // 逃げる動きを関数化
+        function moveButton(e) {
+            // イベントのデフォルト動作（スクロールなど）を防止
+            if(e) e.preventDefault();
 
-            // ボタンのスタイル（座標）を更新
+            // 画面のサイズを取得
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+
+            // ボタンのサイズを取得
+            const btnW = btn.clientWidth;
+            const btnH = btn.clientHeight;
+
+            // 画面内に収まるランダムな座標を計算（端っこに余裕を持たせる）
+            const x = Math.random() * (winW - btnW - 20) + 10;
+            const y = Math.random() * (winH - btnH - 20) + 10;
+
             btn.style.left = `${x}px`;
             btn.style.top = `${y}px`;
-        });
+        }
 
-        // 万が一クリックできた時のお祝い
+        // PC用：マウスが乗ったら逃げる
+        btn.addEventListener('mouseover', moveButton);
+
+        // スマホ用：指が触れた瞬間に逃げる
+        btn.addEventListener('touchstart', moveButton);
+
+        // 万が一クリックできた時（スマホだと連打でたまに当たる）
         btn.addEventListener('click', () => {
-            alert('参りました！あなたの勝ちです！');
+            alert('お見事！あなたの指先は神速です。');
         });
     </script>
 </body>
-
 </html>

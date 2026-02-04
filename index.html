@@ -39,8 +39,8 @@
     <script>
         const btn = document.getElementById('escape-button');
 
-        // マウスがボタンに乗った（重なった）瞬間に発動
-        btn.addEventListener('mouseover', () => {
+        // 触れた瞬間に発動
+        btn.addEventListener('touchstart', () => {
             // 画面の幅と高さからボタンのサイズを引いた範囲で計算
             const x = Math.random() * (window.innerWidth - btn.clientWidth);
             const y = Math.random() * (window.innerHeight - btn.clientHeight);
@@ -56,4 +56,5 @@
         });
     </script>
 </body>
+
 </html>
